@@ -41,6 +41,7 @@ document.getElementById('getWeather').addEventListener('click', function() {
 
             const weatherCardHTML = `
                 <div class="card" data-zip="${zip}" style="border-radius: 10px; position: relative;">
+                    <button class="close-btn" style="position: absolute; top: 10px; right: 10px; background-color: transparent; border: none; color: white; font-size: 20px; cursor: pointer;">&times;</button>
                     <div class="bg-image ripple" data-mdb-ripple-color="light"
                         style="border-top-left-radius: 10px; border-top-right-radius: 10px; position: relative;">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/draw2.webp"
@@ -63,7 +64,15 @@ document.getElementById('getWeather').addEventListener('click', function() {
                 </div>
             `;
 
-            document.getElementById('weatherCards').innerHTML += weatherCardHTML;
+            const weatherCardsContainer = document.getElementById('weatherCards');
+            weatherCardsContainer.innerHTML += weatherCardHTML;
+
+            // Call the function to add event listeners to all close buttons
+            addCloseButtonListeners();
+
+            // Scroll to the new card
+            const newCard = weatherCardsContainer.querySelector(`.card[data-zip="${zip}"]`);
+            newCard.scrollIntoView({ behavior: 'smooth' });
         })
         .catch(error => {
             console.error('Error fetching weather data:', error);
@@ -119,3 +128,16 @@ document.getElementById('toggleTemp').addEventListener('click', function() {
 
     isCelsius = !isCelsius;
 });
+
+// Function to add event listeners to all close buttons
+function addCloseButtonListeners() {
+    const closeButtons = document.querySelectorAll('.close-btn');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            button.closest('.card').remove();
+        });
+    });
+}
+
+// Initial call to ensure event listeners are added for any existing cards
+addCloseButtonListeners();

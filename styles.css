@@ -7,13 +7,30 @@
     box-shadow: 0 0 20px 2px #333333;
     margin: 15px;
     border-radius: 10px;
-    min-width: 300px; /* Ensure cards have a minimum width */
+    width: 500px; /* Set the desired width */
+    height: auto; /* Adjust height as needed */
     flex-shrink: 0; /* Prevent cards from shrinking */
+}
+
+.card .display-2 {
+    font-size: 24px; /* Adjust font size */
+}
+
+.card .h3,
+.card .h5 {
+    font-size: 16px; /* Adjust font size */
+}
+
+.card .feels-like,
+.card .high-low,
+.card .current-date {
+    font-size: 14px; /* Adjust font size */
 }
 
 .navbar .navbar-nav .nav-link:hover {
     background-color: #333333;
 }
+
 .dark-theme .footer {
     background-color: #333333;
 }
@@ -28,6 +45,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 10px; /* Adjust padding */
 }
 
 .text-center p {
@@ -70,4 +88,32 @@
     display: flex;
     overflow-x: auto;
     gap: 15px; /* Space between cards */
+    justify-content: flex-start; /* Align cards to the start */
+    scroll-behavior: smooth;
+    padding: 15px; /* Add padding to ensure the first and last cards are not cut off */
+    padding-left: 30px; /* Additional padding to ensure the first card is fully visible */
+    padding-right: 30px; /* Additional padding to ensure the last card is fully visible */
+}
+
+.card {
+    flex-shrink: 0; /* Prevent cards from shrinking */
+    margin-right: 15px; /* Space between cards */
+    margin-left: 15px; /* Space between cards */
+}
+.close-btn {
+    position: absolute;
+    top: 5px; /* Adjust positioning */
+    right: 5px; /* Adjust positioning */
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1000; /* Ensure the button is above other elements */
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0; /* Adjust border-radius to match card */
 }
