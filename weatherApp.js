@@ -185,5 +185,6 @@ document.getElementById('toggleTemp').addEventListener('click', function() {
     isCelsius = !isCelsius;
 });
 
+
 // Initial call to ensure event listeners are added for any existing cards
 addCloseButtonListeners();

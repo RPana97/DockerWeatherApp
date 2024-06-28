@@ -3,6 +3,18 @@
     color: #ffffff;
 }
 
+header {
+    background-color: #333;
+    color: white;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
 .card {
     box-shadow: 0 0 20px 2px #333333;
     margin: 15px;
@@ -100,6 +112,7 @@
     margin-right: 15px; /* Space between cards */
     margin-left: 15px; /* Space between cards */
 }
+
 .close-btn {
     position: absolute;
     top: 5px; /* Adjust positioning */
@@ -132,4 +145,3 @@
     flex-direction: column;
     align-items: center;
 }
-
