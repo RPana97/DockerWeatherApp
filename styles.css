@@ -7,6 +7,8 @@
     box-shadow: 0 0 20px 2px #333333;
     margin: 15px;
     border-radius: 10px;
+    min-width: 300px; /* Ensure cards have a minimum width */
+    flex-shrink: 0; /* Prevent cards from shrinking */
 }
 
 .navbar .navbar-nav .nav-link:hover {
@@ -62,4 +64,10 @@
 
 #weatherInputs .btn {
     flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+#weatherCards {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px; /* Space between cards */
 }
