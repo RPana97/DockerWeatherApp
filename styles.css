@@ -1,0 +1,16 @@
+.dark-theme {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.card {
+    box-shadow: 0 0 20px 2px #333333;
+    margin: 15px;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+    background-color: #333333;
+}
+.dark-theme .footer {
+    background-color: #333333;
+}
