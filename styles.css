@@ -51,3 +51,15 @@
 .mask .text-center {
     z-index: 1; /* Ensure weather data is above the mask */
 }
+
+#weatherInputs {
+    align-items: center;
+}
+
+#weatherInputs .form-control {
+    max-width: 200px; /* Adjust width as needed */
+}
+
+#weatherInputs .btn {
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+}

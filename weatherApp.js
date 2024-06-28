@@ -1,3 +1,9 @@
+let currentTempCelsius = null;
+let tempHiCelsius = null;
+let tempLoCelsius = null;
+let feelsLikeCelsius = null;
+let isCelsius = true;
+
 document.getElementById('getWeather').addEventListener('click', function() {
     const zip = document.getElementById('zip').value;
     const apiKey = '9616debddd4825712c60b8e8e8ced8de'; // Your actual API key
@@ -21,18 +27,18 @@ document.getElementById('getWeather').addEventListener('click', function() {
 
             const currentDate = new Date(data.dt * 1000).toLocaleDateString();
             const city = data.name;
-            const currentTemp = data.main.temp;
+            currentTempCelsius = data.main.temp;
+            tempHiCelsius = data.main.temp_max;
+            tempLoCelsius = data.main.temp_min;
+            feelsLikeCelsius = data.main.feels_like; // Updated variable assignment
             const currentConditions = data.weather[0].description;
-            const feelsLike = data.main.feels_like;
-            const tempHi = data.main.temp_max;
-            const tempLo = data.main.temp_min;
 
             document.getElementById('currentDate').innerText = `Current Date: ${currentDate}`;
             document.getElementById('city').innerText = city;
-            document.getElementById('currentTemp').innerText = `${currentTemp}°C`;
-            document.getElementById('feelsLike').innerText = `Feels like : ${feelsLike}°C`;
+            document.getElementById('currentTemp').innerText = `${currentTempCelsius}°C`;
+            document.getElementById('feelsLike').innerText = `Feels like: ${feelsLikeCelsius}°C`; // Updated element
             document.getElementById('currentConditions').innerText = currentConditions.charAt(0).toUpperCase() + currentConditions.slice(1);
-            document.getElementById('tempHiLo').innerText = `High/Low : ${tempHi}°C / ${tempLo}°C`;
+            document.getElementById('tempHiLo').innerText = `High/Low: ${tempHiCelsius}°C / ${tempLoCelsius}°C`;
 
             const weatherDataElement = document.getElementById('weatherData');
             if (weatherDataElement) {
@@ -43,4 +49,28 @@ document.getElementById('getWeather').addEventListener('click', function() {
             console.error('Error fetching weather data:', error);
             alert('Error fetching weather data: ' + error.message);
         });
+});
+
+document.getElementById('toggleTemp').addEventListener('click', function() {
+    if (currentTempCelsius === null) {
+        return;
+    }
+    
+    if (isCelsius) {
+        const currentTempFahrenheit = (currentTempCelsius * 9/5) + 32;
+        const tempHiFahrenheit = (tempHiCelsius * 9/5) + 32;
+        const tempLoFahrenheit = (tempLoCelsius * 9/5) + 32;
+        const feelsLikeFahrenheit = (feelsLikeCelsius * 9/5) + 32; // Updated calculation
+        document.getElementById('currentTemp').innerText = `${currentTempFahrenheit.toFixed(2)}°F`;
+        document.getElementById('tempHiLo').innerText = `High/Low: ${tempHiFahrenheit.toFixed(2)}°F / ${tempLoFahrenheit.toFixed(2)}°F`;
+        document.getElementById('feelsLike').innerText = `Feels like: ${feelsLikeFahrenheit.toFixed(2)}°F`; // Updated element
+
+        isCelsius = false;
+    } else {
+        document.getElementById('currentTemp').innerText = `${currentTempCelsius}°C`;
+        document.getElementById('tempHiLo').innerText = `High/Low: ${tempHiCelsius}°C / ${tempLoCelsius}°C`;
+        document.getElementById('feelsLike').innerText = `Feels like: ${feelsLikeCelsius}°C`; // Updated element
+
+        isCelsius = true;
+    }
 });
