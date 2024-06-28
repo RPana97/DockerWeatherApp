@@ -70,7 +70,7 @@ document.getElementById('getWeather').addEventListener('click', function() {
                     const forecastHTML = forecast.map(day => `
                         <div class="forecast-day">
                             <p>${day.date}</p>
-                            <p class="forecast-temp">${day.temp.toFixed(2)}°C</p>
+                            <p class="forecast-temp">${isCelsius ? day.temp.toFixed(2) : ((day.temp * 9/5) + 32).toFixed(2)}°${isCelsius ? 'C' : 'F'}</p>
                         </div>
                     `).join('');
 
@@ -89,9 +89,9 @@ document.getElementById('getWeather').addEventListener('click', function() {
                                     <div class="text-center text-white position-absolute w-100" style="top: 50%; transform: translateY(-50%);">
                                         <p class="h3 mb-4">${currentConditions.charAt(0).toUpperCase() + currentConditions.slice(1)}</p>
                                         <p class="h5 mb-4">${city}</p>
-                                        <p class="display-2"><strong class="current-temp">${currentTempCelsius}°C</strong></p>
-                                        <p class="h5 fw-normal feels-like">Feels like: <span class="feels-like-temp">${feelsLikeCelsius}°C</span></p>
-                                        <p class="h5 fw-normal high-low">High/Low: <span class="high-low-temp">${tempHiCelsius}°C / ${tempLoCelsius}°C</span></p>
+                                        <p class="display-2"><strong class="current-temp">${isCelsius ? currentTempCelsius.toFixed(2) : ((currentTempCelsius * 9/5) + 32).toFixed(2)}°${isCelsius ? 'C' : 'F'}</strong></p>
+                                        <p class="h5 fw-normal feels-like">Feels like: <span class="feels-like-temp">${isCelsius ? feelsLikeCelsius.toFixed(2) : ((feelsLikeCelsius * 9/5) + 32).toFixed(2)}°${isCelsius ? 'C' : 'F'}</span></p>
+                                        <p class="h5 fw-normal high-low">High/Low: <span class="high-low-temp">${isCelsius ? tempHiCelsius.toFixed(2) : ((tempHiCelsius * 9/5) + 32).toFixed(2)}°${isCelsius ? 'C' : 'F'} / ${isCelsius ? tempLoCelsius.toFixed(2) : ((tempLoCelsius * 9/5) + 32).toFixed(2)}°${isCelsius ? 'C' : 'F'}</span></p>
                                         <p class="h5 fw-normal current-date">Current Date: ${currentDate}</p>
                                     </div>
                                 </div>
