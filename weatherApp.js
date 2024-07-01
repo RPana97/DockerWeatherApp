@@ -1,24 +1,28 @@
+// Initialize variables to store temperatures in Celsius and a flag for current temperature unit
 let currentTempCelsius = null;
 let tempHiCelsius = null;
 let tempLoCelsius = null;
 let feelsLikeCelsius = null;
 let isCelsius = true;
 
+// Function to add event listeners to close buttons on weather cards
 function addCloseButtonListeners() {
     const closeButtons = document.querySelectorAll('.close-btn');
     closeButtons.forEach(button => {
         button.addEventListener('click', function() {
+            // Remove the closest parent card element when the close button is clicked
             button.closest('.card').remove();
         });
     });
 }
 
+// Add click event listener to the button with ID 'getWeather'
 document.getElementById('getWeather').addEventListener('click', function() {
-    const zip = document.getElementById('zip').value;
+    const zip = document.getElementById('zip').value; // Get the ZIP code from input field
     const apiKey = '9616debddd4825712c60b8e8e8ced8de'; // Your actual API key
 
-    console.log("Fetching data for ZIP code:", zip); // Debug log
-    console.log("Using API key:", apiKey); // Debug log
+    console.log("Fetching data for ZIP code:", zip); // Debug log for ZIP code
+    console.log("Using API key:", apiKey); // Debug log for API key
 
     // Check if a card with this ZIP code already exists
     if (document.querySelector(`.card[data-zip="${zip}"]`)) {
@@ -35,12 +39,12 @@ document.getElementById('getWeather').addEventListener('click', function() {
             return response.json();
         })
         .then(data => {
-            console.log("Current Weather API response:", data); // Debug log
+            console.log("Current Weather API response:", data); // Debug log for weather API response
             if (!data.main || !data.weather) {
                 throw new Error('Invalid weather data received');
             }
 
-            const currentDate = new Date(data.dt * 1000).toLocaleDateString();
+            const currentDate = new Date(data.dt * 1000).toLocaleDateString(); // Convert UNIX timestamp to local date
             const city = data.name;
             currentTempCelsius = data.main.temp;
             tempHiCelsius = data.main.temp_max;
@@ -57,7 +61,7 @@ document.getElementById('getWeather').addEventListener('click', function() {
                     return response.json();
                 })
                 .then(forecastData => {
-                    console.log("Forecast API response:", forecastData); // Debug log
+                    console.log("Forecast API response:", forecastData); // Debug log for forecast API response
 
                     // Extract forecast data for the next 3 days
                     const forecast = [];
@@ -67,6 +71,7 @@ document.getElementById('getWeather').addEventListener('click', function() {
                         forecast.push({ date: forecastDate, temp: forecastTemp });
                     }
 
+                    // Generate HTML for forecast days
                     const forecastHTML = forecast.map(day => `
                         <div class="forecast-day">
                             <p>${day.date}</p>
@@ -74,6 +79,7 @@ document.getElementById('getWeather').addEventListener('click', function() {
                         </div>
                     `).join('');
 
+                    // Generate HTML for the weather card
                     const weatherCardHTML = `
                         <div class="card" data-zip="${zip}" style="border-radius: 10px; position: relative;">
                             <button class="close-btn" style="position: absolute; top: 10px; right: 10px; background-color: transparent; border: none; color: white; font-size: 20px; cursor: pointer;">&times;</button>
@@ -102,6 +108,7 @@ document.getElementById('getWeather').addEventListener('click', function() {
                         </div>
                     `;
 
+                    // Append the weather card HTML to the container
                     const weatherCardsContainer = document.getElementById('weatherCards');
                     weatherCardsContainer.innerHTML += weatherCardHTML;
 
@@ -123,6 +130,7 @@ document.getElementById('getWeather').addEventListener('click', function() {
         });
 });
 
+// Add click event listener to the button with ID 'toggleTemp'
 document.getElementById('toggleTemp').addEventListener('click', function() {
     if (currentTempCelsius === null) {
         return;
@@ -135,15 +143,16 @@ document.getElementById('toggleTemp').addEventListener('click', function() {
         const hiLoElement = card.querySelector('.high-low-temp');
         const forecastTemps = card.querySelectorAll('.forecast-temp');
 
-        console.log('Temp Element:', tempElement);
-        console.log('Hi/Lo Element:', hiLoElement);
-        console.log('Feels Like Element:', feelsLikeElement);
+        console.log('Temp Element:', tempElement); // Debug log for temperature element
+        console.log('Hi/Lo Element:', hiLoElement); // Debug log for high/low element
+        console.log('Feels Like Element:', feelsLikeElement); // Debug log for feels-like element
 
         if (tempElement && hiLoElement && feelsLikeElement) {
             if (isCelsius) {
+                // Convert temperatures from Celsius to Fahrenheit
                 const currentTempFahrenheit = (parseFloat(tempElement.textContent) * 9/5) + 32;
                 const hiLoText = hiLoElement.textContent.split(' / ');
-                console.log('hiLoText:', hiLoText); // Debug log
+                console.log('hiLoText:', hiLoText); // Debug log for high/low text
 
                 const tempHiFahrenheit = (parseFloat(hiLoText[0]) * 9/5) + 32;
                 const tempLoFahrenheit = (parseFloat(hiLoText[1]) * 9/5) + 32;
@@ -159,9 +168,10 @@ document.getElementById('toggleTemp').addEventListener('click', function() {
                     forecastTemp.textContent = `${tempFahrenheit.toFixed(2)}°F`;
                 });
             } else {
+                // Convert temperatures from Fahrenheit to Celsius
                 const currentTempCelsius = (parseFloat(tempElement.textContent) - 32) * 5/9;
                 const hiLoText = hiLoElement.textContent.split(' / ');
-                console.log('hiLoText:', hiLoText); // Debug log
+                console.log('hiLoText:', hiLoText); // Debug log for high/low text
 
                 const tempHiCelsius = (parseFloat(hiLoText[0]) - 32) * 5/9;
                 const tempLoCelsius = (parseFloat(hiLoText[1]) - 32) * 5/9;
@@ -182,9 +192,8 @@ document.getElementById('toggleTemp').addEventListener('click', function() {
         }
     });
 
-    isCelsius = !isCelsius;
+    isCelsius = !isCelsius; // Toggle the temperature unit flag
 });
-
 
 // Initial call to ensure event listeners are added for any existing cards
 addCloseButtonListeners();
