@@ -19,8 +19,8 @@ header h1 {
     box-shadow: 0 0 20px 2px #333333;
     margin: 15px;
     border-radius: 10px;
-    width: 500px; /* Set the desired width */
-    height: auto; /* Adjust height as needed */
+    width: 500px; 
+    height: auto; 
     flex-shrink: 0; /* Prevent cards from shrinking */
 }
 
@@ -72,7 +72,7 @@ header h1 {
 .card-body {
     position: relative;
     z-index: 1;
-    background-color: rgba(255, 255, 255, 0.9); /* Optional: Lighten the card background */
+    background-color: rgba(255, 255, 255, 0.9); 
 }
 
 .card-body .form-label, .card-body .form-control, .card-body .btn {
@@ -89,7 +89,7 @@ header h1 {
 }
 
 #weatherInputs .form-control {
-    max-width: 200px; /* Adjust width as needed */
+    max-width: 200px; 
 }
 
 #weatherInputs .btn {
