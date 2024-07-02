@@ -78,7 +78,8 @@ document.getElementById('getWeather').addEventListener('click', function() {
                             <p class="forecast-temp">${isCelsius ? day.temp.toFixed(2) : ((day.temp * 9/5) + 32).toFixed(2)}°${isCelsius ? 'C' : 'F'}</p>
                         </div>
                     `).join('');
-
+                    // When getWeather button is pressed, an event listener is triggered, retrieving the zip and attaches it to that card as an ID.
+                    // if another card with that zip is already created, it cannot create a new one.
                     // Generate HTML for the weather card
                     const weatherCardHTML = `
                         <div class="card" data-zip="${zip}" style="border-radius: 10px; position: relative;">
